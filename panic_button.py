@@ -89,16 +89,18 @@ class App(tk.Tk):
 
     # ----------------------------------------------------
     def connect_single(self, index):
+        print("connecting single")
         port = self.ports[index]
         endpoint = f"udp:0.0.0.0:{port}"
 
         try:
             print(f"Connecting to {endpoint}")
-            v = connect(endpoint, wait_ready=True, baud=57600)
+            v = connect(endpoint, wait_ready=True, baud=115200, heartbeat_timeout=1)
             self.vehicles[index] = v
             self.status_labels[index].config(text="● Connected", foreground="green")
         except Exception as e:
-            messagebox.showwarning("Connection Failed", f"Drone {index+1} ({endpoint}) failed:\n{e}")
+            print("Connection Failed", f"Drone {index+1} ({endpoint}) failed:\n{e}\nRetrying connection")
+            self.status_labels[index].config(text="● Lost", foreground="orange")
 
     # ----------------------------------------------------
     def refresh_status(self):
