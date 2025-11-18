@@ -1,0 +1,18 @@
+{
+  "map_center": [
+    1.3,
+    103.8
+  ],
+  "zoom": 15,
+  "refresh_s": 2.0,
+  "separation_m": 10.0,
+  "vehicles": [
+    {
+      "name": "Group1-L",
+      "endpoint": "udpin:0.0.0.0:15021",
+      "color": "red",
+      "group": "Group1",
+      "role": "leader"
+    }
+  ]
+}
