@@ -1,0 +1,25 @@
+[Unit]
+Description=Panic Button + Drone Fleet Monitor
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=tko
+WorkingDirectory=/home/tko/fleet
+
+# Use your virtual environment's Python
+ExecStart=/home/tko/fleet/venv/bin/python /home/tko/fleet/panic_button.py
+
+# Ensure logs flush immediately (very useful for debugging)
+Environment=PYTHONUNBUFFERED=1
+
+# Optional delay to avoid GPIO errors during boot
+ExecStartPre=/bin/sleep 2
+
+# Always restart if script exits or crashes
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
